@@ -5,7 +5,8 @@ Grafo* create_graph (int size)
     Grafo* grafo = (Grafo*) malloc(sizeof(Grafo));
     grafo->e = 0;
     grafo->v = size;
-    grafo->adj= (No**) malloc(size * sizeof(No*));
+    printf("size : %d\n", size);
+    grafo->adj = (No**) malloc(size * sizeof(No*));
     for (int i = 0; i < size; ++i)
         grafo->adj[i] = NULL;
     return grafo;
@@ -32,17 +33,21 @@ void add_edge (Grafo* grafo, int in, int out, int directional)
 {
     grafo->adj[in] = add_node(grafo->adj[in], out);
     if (!directional)
+    {
         grafo->adj[out] = add_node(grafo->adj[out], in);
+        ++grafo->e;
+    }
+    ++grafo->e;
 }
 
 void print_graph (Grafo* grafo) {
-  for (int i = 0; i < grafo->v; putchar('\n'), ++i) {
-    printf("%d -> ", i);
-    No* no = grafo->adj[i];
-    while (no != NULL) {
-      printf("%d ", no->id);
-      no = no->next;
+    for (int i = 0; i < grafo->v; putchar('\n'), ++i) {
+        printf("%d -> ", i);
+        No* no = grafo->adj[i];
+        while (no != NULL) {
+          printf("%d ", no->id);
+          no = no->next;
+        }
     }
-  }
-  printf("\n\n");
+    printf("\n\n");
 }

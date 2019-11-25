@@ -1,42 +1,53 @@
 #include "main.h"
 
-int count_lines (char* filename)
+int main (void)
 {
-    if (fseek(filename, 0L, SEEK_END) != 0)
-    {
-        printf("Erro ao ler arquivo.\n");
-        return -1;
-    }
+    char* filename = "samples/exemplo.csv";
+    Grafo* grafo = read_csv(filename);
+    print_graph(grafo);
+    free_graph(grafo);
+    return 0;
+}
 
-    int size = ftell(filename);
-    if (fseek(filename, 0L, SEEK_SET) != 0)
+int count_lines (FILE* stream)
+{
+    int size = 0;
+    for (char c = getc(stream); c != EOF; c = getc(stream)) 
+        if (c == '\n')
+            ++size;
+
+    if (fseek(stream, 0L, SEEK_SET) != 0)
     {
         printf("Erro ao ler arquivo.\n");
         return -1;
     }
-    return size;
+    return size + 1;
 }
 
 /* Lê as parada */
 Grafo* read_csv (char* filename)
 {
-    Grafo* grafo = create_graph(count_lines(filename));
     FILE* stream = fopen(filename, "r");
+    Grafo* grafo = create_graph(count_lines(stream));
 
     char line[MAX_LINE_LENGTH];
+    const char* delim = ",";
     while (fgets(line, MAX_LINE_LENGTH, stream))
     {
         char* tmp = strdup(line);
-        char* field = strtok(tmp, ',');
+        char* field = strtok(tmp, delim);
         int first = atoi(field);
 
         while (field != NULL)
         {
-            field = strtok(NULL, ',');
+            field = strtok(NULL, delim);
+            if (field != NULL)
+                add_edge(grafo, first, atoi(field), 1);
         }
 
         free(tmp);
     }
+    return grafo;
 }
 
 
