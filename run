@@ -1,0 +1,2 @@
+gcc -o dsatur src/*
+./dsatur
