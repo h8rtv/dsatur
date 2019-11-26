@@ -13,11 +13,14 @@ void dsatur (Grafo* grafo)
         i = get_highest_degree_edge(grafo);
         if (i == -1) break;
         grafo->color[i] = 1;
-        for (node = grafo->adj[i]; node != NULL; printf("hehe %d %d %d\n", i, node->id, grafo->color[i]), node = node->next)
-            if (grafo->color[node->id] == grafo->color[i]) {
-              grafo->color[i]++;
-              node = grafo->adj[i];
-            }
+        node = grafo->adj[i];
+        while (node != NULL)
+            if (grafo->color[node->id] == grafo->color[i])
+            {
+                grafo->color[i]++;
+                node = grafo->adj[i];
+            } else
+                node = node->next;
         for (node = grafo->adj[i]; node != NULL; node = node->next)
             grafo->sat[node->id]++;
     }

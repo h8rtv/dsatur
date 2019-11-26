@@ -69,7 +69,7 @@ void print_graph (Grafo* grafo)
 int get_highest_length_edge (Grafo* grafo)
 {
     int index = 0;
-    for (int i = 1; i <= grafo->v; i++)
+    for (int i = 0; i < grafo->v; i++)
         if (grafo->length[i] > grafo->length[index])
             index = i;
     return index;
