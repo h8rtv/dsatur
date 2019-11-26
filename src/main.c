@@ -28,7 +28,7 @@ void dsatur (Grafo* grafo)
 
 int main (void)
 {
-    char* filename = "samples/exemplo.csv";
+    char* filename = "samples/exemplo2.csv";
     Grafo* grafo = read_csv(filename);
     print_graph(grafo);
     dsatur(grafo);
