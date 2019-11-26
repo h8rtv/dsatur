@@ -4,24 +4,24 @@ void dsatur (Grafo* grafo)
 {
     No* node = NULL;
   	int i = get_highest_length_edge(grafo);
-    grafo->color[i] = 1;
-    for (node = grafo->adj[i]; node != NULL; node = node->next)
-        grafo->sat[node->id]++;
-    while (1)
+    int notFirstTime = 0;
+    while (i != -1)
     {
-        i = get_highest_degree_edge(grafo);
-        if (i == -1) break;
         grafo->color[i] = 1;
         node = grafo->adj[i];
-        while (node != NULL)
-            if (grafo->color[node->id] == grafo->color[i])
-            {
-                grafo->color[i]++;
-                node = grafo->adj[i];
-            } else
-                node = node->next;
+        if (notFirstTime)
+          while (node != NULL)
+              if (grafo->color[node->id] == grafo->color[i])
+              {
+                  grafo->color[i]++;
+                  node = grafo->adj[i];
+              } else
+                  node = node->next;
+        else
+          notFirstTime = 1;
         for (node = grafo->adj[i]; node != NULL; node = node->next)
             grafo->sat[node->id]++;
+        i = get_highest_degree_edge(grafo);
     }
 }
 
