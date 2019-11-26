@@ -77,9 +77,13 @@ int get_highest_length_edge (Grafo* grafo)
 
 int get_highest_degree_edge (Grafo* grafo)
 {
-    int index = 0;
+    int index = -1;
     for(int i = 0; i < grafo->v; i++)
-        if (grafo->sat[i] >= grafo->sat[i])
+      if (grafo->color[i] == 0)
+        if (grafo->sat[i] > grafo->sat[index])
+            index = i;
+        else if (grafo->sat[i] == grafo->sat[index] &&
+          grafo->length[i] > grafo->length[index])
             index = i;
     return index;
 }

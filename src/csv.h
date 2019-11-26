@@ -4,7 +4,7 @@
 #include "main.h"
 
 /* Escreve as cores dos nós */
-void write_grafo(Grafo* grafo);
+void write_graph (Grafo* grafo);
 /* Conta a quantidade de linhas num arquivo */
 int count_lines (FILE* stream);
 /* Lê o CSV de entrada e retorna o Grafo */

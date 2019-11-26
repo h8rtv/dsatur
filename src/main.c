@@ -2,8 +2,25 @@
 
 void dsatur (Grafo* grafo)
 {
-	int i = get_highest_length_edge(grafo);
-  printf("%d\n", i);
+    int j = 0;
+    No* node = NULL;
+  	int i = get_highest_length_edge(grafo);
+    grafo->color[i] = 1;
+    for (node = grafo->adj[i]; node != NULL; node = node->next)
+        grafo->sat[node->id]++;
+    while (1)
+    {
+        i = get_highest_degree_edge(grafo);
+        if (i == -1) break;
+        grafo->color[i] = 1;
+        for (node = grafo->adj[i]; node != NULL; printf("hehe %d %d %d\n", i, node->id, grafo->color[i]), node = node->next)
+            if (grafo->color[node->id] == grafo->color[i]) {
+              grafo->color[i]++;
+              node = grafo->adj[i];
+            }
+        for (node = grafo->adj[i]; node != NULL; node = node->next)
+            grafo->sat[node->id]++;
+    }
 }
 
 int main (void)
@@ -12,7 +29,7 @@ int main (void)
     Grafo* grafo = read_csv(filename);
     print_graph(grafo);
     dsatur(grafo);
-    write_grafo(grafo);
+    write_graph(grafo);
     free_graph(grafo);
     return 0;
 }

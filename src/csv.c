@@ -1,15 +1,15 @@
 #include "main.h"
 
 /* Escreve as cores dos nós */
-void write_grafo(Grafo* grafo){
+void write_graph(Grafo* grafo)
+{
     FILE *fp;
 
     fp = fopen("output.csv", "w+");
     fprintf(fp, "Nó, Cor\n");
 
-    for(int i = 0; i < grafo->v; i++){
+    for(int i = 0; i < grafo->v; i++)
         fprintf(fp, "%d, %d\n", i, grafo->color[i]);
-    }
     fclose(fp);
 }
 
@@ -47,7 +47,7 @@ Grafo* read_csv (char* filename)
         {
             field = strtok(NULL, delim);
             if (field != NULL)
-                add_edge(grafo, first - 1, atoi(field), 1);
+                add_edge(grafo, first - 1, atoi(field) - 1, 1);
         }
 
         free(tmp);
