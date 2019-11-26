@@ -2,7 +2,6 @@
 
 void dsatur (Grafo* grafo)
 {
-    int j = 0;
     No* node = NULL;
   	int i = get_highest_length_edge(grafo);
     grafo->color[i] = 1;
