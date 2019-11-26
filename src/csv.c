@@ -54,3 +54,52 @@ Grafo* read_csv (char* filename)
     }
     return grafo;
 }
+
+/* Escreve as informações necessárias */
+void write_info(Grafo* grafo, clock_t start){
+    int
+        grau_min = -1,
+        grau_max = -1,
+        cores = 0;
+
+    double
+        grau_med = 0,
+        grau_dp = 0;
+
+    clock_t end = clock();
+    float endtime = (float)(end - start) / CLOCKS_PER_SEC;
+
+    
+    // Define grau máximo, médio e mínimo, e o número de cores
+    for(int i = 0; i < grafo->v; i++){
+        if(grafo->sat[i] < grau_min || grau_min == -1)
+            grau_min = grafo->sat[i];
+        if(grafo->sat[i] > grau_max || grau_max == -1)
+            grau_max = grafo->sat[i];
+        
+        grau_med += grafo->sat[i];
+
+        if(grafo->color[i] > cores)
+            cores = grafo->color[i];
+    }
+    grau_med /= grafo->v;
+
+    // Define o desvio padrão
+    for(int i = 0; i < grafo->v; i++){
+        grau_dp += (float) pow((float) (grafo->sat[i] - grau_med), 2);
+    }
+    grau_dp /= grafo->v;
+    grau_dp = sqrt(grau_dp);
+
+    FILE *fp;
+
+    fp = fopen("info.csv", "w+");
+    fprintf(fp, "No. nós, No. arestas, Grau mínimo, Grau máximo, Grau médio, Desvio padrão, No. cores, Run time (s)\n");
+    fprintf(fp, "%d, %d, %d, %d, %.2f, %.2f, %d, %f\n",
+                grafo->v,
+                grafo->e,
+                grau_max, grau_med, grau_min, grau_dp,
+                cores,
+                endtime);
+    fclose(fp);
+}

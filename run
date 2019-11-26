@@ -1,3 +1,0 @@
-gcc -o dsatur src/*
-./dsatur
-cat output.csv

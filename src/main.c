@@ -27,11 +27,16 @@ void dsatur (Grafo* grafo)
 
 int main (void)
 {
+
+    clock_t start = clock();
+
     char* filename = "samples/exemplo2.csv";
     Grafo* grafo = read_csv(filename);
     print_graph(grafo);
     dsatur(grafo);
     write_graph(grafo);
+
+    write_info(grafo, start);
     free_graph(grafo);
     return 0;
 }

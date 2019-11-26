@@ -9,5 +9,7 @@ void write_graph (Grafo* grafo);
 int count_lines (FILE* stream);
 /* Lê o CSV de entrada e retorna o Grafo */
 Grafo* read_csv (char* filename);
+/* Escreve as informações necessárias */
+void write_info(Grafo* grafo, clock_t start);
 
 #endif
