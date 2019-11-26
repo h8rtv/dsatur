@@ -39,46 +39,41 @@ void add_edge (Grafo* grafo, int in, int out, int directional)
     if (!directional)
     {
         grafo->adj[out] = add_node(grafo->adj[out], in);
-        ++grafo->length[in];
+        ++grafo->length[out];
         ++grafo->e;
     }
     ++grafo->e;
 }
 
-void print_graph (Grafo* grafo) {
-    for (int i = 1; i <= grafo->v; putchar('\n'), ++i) {
+void print_graph (Grafo* grafo)
+{
+    for (int i = 1; i <= grafo->v; putchar('\n'), ++i)
+    {
         printf("%d -> ", i);
         No* no = grafo->adj[i];
-        while (no != NULL) {
-          printf("%d ", no->id);
-          no = no->next;
+        while (no != NULL)
+        {
+            printf("%d ", no->id);
+            no = no->next;
         }
     }
     printf("\n\n");
 }
 
-/* Retorna o índice (id) do nó com a maior quantidade de nós subjacentes */
-int get_highest_length_edge(Grafo* grafo){
+int get_highest_length_edge (Grafo* grafo)
+{
     int index = 0;
-
-    for(int i = 1; i < grafo->v; i++){
-        if(grafo->length[i] > grafo->length[index]){
+    for (int i = 1; i < grafo->v; i++)
+        if (grafo->length[i] > grafo->length[index])
             index = i;
-        }
-    }
-
     return index;
 }
 
-/* Retorna o índice (id) do nó com o maior grau de saturação */
-int get_highest_degree_edge(Grafo* grafo){
+int get_highest_degree_edge (Grafo* grafo)
+{
     int index = 0;
-
-    for(int i = 1; i < grafo->v; i++){
-        if(grafo->adj[i]->sat >= grafo->adj[index]->sat){
+    for(int i = 1; i < grafo->v; i++)
+        if (grafo->adj[i]->sat >= grafo->adj[index]->sat)
             index = i;
-        }
-    }
-
     return index;
 }

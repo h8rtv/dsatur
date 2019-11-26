@@ -29,7 +29,7 @@ typedef struct _grafo
 
 /* Cria um grafo baseado no tamanho passado */
 Grafo* create_graph (int);
-/* Limpa o grafo da memória */ 
+/* Limpa o grafo da memória */
 Grafo* free_graph (Grafo*);
 /* Cria um nó para a lista de adjacências */
 No* add_node (No*, int);
@@ -37,5 +37,9 @@ No* add_node (No*, int);
 void add_edge (Grafo*, int, int, int);
 /* Imprime o grafo. */
 void print_graph (Grafo* grafo);
+/* Retorna o índice (id) do nó com a maior quantidade de nós subjacentes */
+int get_highest_length_edge (Grafo*);
+/* Retorna o índice (id) do nó com o maior grau de saturação */
+int get_highest_degree_edge (Grafo*);
 
 #endif
