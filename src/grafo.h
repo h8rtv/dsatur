@@ -6,6 +6,10 @@ typedef struct _node
 {
     /* Chave do nó */
     int id;
+    /* Grau de saturação do nó */
+    int sat;
+    /* Cor do nó */
+    int color;
     /* Próximo elemento da lista encadeada */
     struct _node* next;
 } No;
@@ -19,6 +23,8 @@ typedef struct _grafo
     int e;
     /* Lista de adjecências */
     No** adj;
+    /* Quantidade de elementos em cada adjecência */
+    int* length;
 } Grafo;
 
 /* Cria um grafo baseado no tamanho passado */
