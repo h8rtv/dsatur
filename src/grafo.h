@@ -6,10 +6,6 @@ typedef struct _node
 {
     /* Chave do nó */
     int id;
-    /* Grau de saturação do nó */
-    int sat;
-    /* Cor do nó */
-    int color;
     /* Próximo elemento da lista encadeada */
     struct _node* next;
 } No;
@@ -25,6 +21,10 @@ typedef struct _grafo
     No** adj;
     /* Quantidade de elementos em cada adjecência */
     int* length;
+    /* Cor do nó */
+    int* color;
+    /* Grau de saturação do nó */
+    int* sat;
 } Grafo;
 
 /* Cria um grafo baseado no tamanho passado */
@@ -37,7 +37,7 @@ No* add_node (No*, int);
 void add_edge (Grafo*, int, int, int);
 /* Imprime o grafo. */
 void print_graph (Grafo* grafo);
-/* Retorna o índice (id) do nó com a maior quantidade de nós subjacentes */
+/* Retorna índice do nó com a maior quantidade de nós subjacentes */
 int get_highest_length_edge (Grafo*);
 /* Retorna o índice (id) do nó com o maior grau de saturação */
 int get_highest_degree_edge (Grafo*);

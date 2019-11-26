@@ -1,18 +1,9 @@
 #include "main.h"
 
-int main (void)
-{
-    char* filename = "samples/exemplo.csv";
-    Grafo* grafo = read_csv(filename);
-    print_graph(grafo);
-    free_graph(grafo);
-    return 0;
-}
-
 int count_lines (FILE* stream)
 {
     int size = 0;
-    for (char c = getc(stream); c != EOF; c = getc(stream)) 
+    for (char c = getc(stream); c != EOF; c = getc(stream))
         if (c == '\n')
             ++size;
 
@@ -42,7 +33,7 @@ Grafo* read_csv (char* filename)
         {
             field = strtok(NULL, delim);
             if (field != NULL)
-                add_edge(grafo, first, atoi(field), 1);
+                add_edge(grafo, first - 1, atoi(field), 1);
         }
 
         free(tmp);
@@ -50,5 +41,18 @@ Grafo* read_csv (char* filename)
     return grafo;
 }
 
+void dsatur (Grafo* grafo)
+{
+	int i = get_highest_length_edge(grafo);
+  printf("%d\n", i);
+}
 
-
+int main (void)
+{
+    char* filename = "samples/exemplo.csv";
+    Grafo* grafo = read_csv(filename);
+    print_graph(grafo);
+    dsatur(grafo);
+    free_graph(grafo);
+    return 0;
+}
