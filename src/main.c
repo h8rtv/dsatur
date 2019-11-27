@@ -5,20 +5,27 @@ void dsatur (Grafo* grafo)
     No* node = NULL;
   	int i = get_highest_length_edge(grafo);
     int notFirstTime = 0;
+    int done = 0;
     while (i != -1)
     {
+        done = 0;
         grafo->color[i] = 1;
-        node = grafo->adj[i];
+        // Caso seja a primeira passagem pelo loop, ou seja, o i seja do índice mais saturado.
         if (notFirstTime)
-          while (node != NULL)
-              if (grafo->color[node->id] == grafo->color[i])
-              {
-                  grafo->color[i]++;
-                  node = grafo->adj[i];
-              } else
-                  node = node->next;
+            // Seleciona a menor cor possível de acordo com a lista encadeada.
+            while (!done)
+            {
+              done = 1;
+              for (node = grafo->adj[i]; node != NULL; node = node->next)
+                  if (grafo->color[node->id] == grafo->color[i])
+                  {
+                      grafo->color[i]++;
+                      done = 0;
+                  }
+            }
         else
-          notFirstTime = 1;
+            notFirstTime = 1;
+        // Satura todos os nós vizinhos
         for (node = grafo->adj[i]; node != NULL; node = node->next)
             grafo->sat[node->id]++;
         i = get_highest_degree_edge(grafo);
