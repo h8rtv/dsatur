@@ -98,7 +98,7 @@ void write_info(Grafo* grafo, clock_t start){
     fprintf(fp, "%d, %d, %d, %d, %.2f, %.2f, %d, %f\n",
                 grafo->v,
                 grafo->e,
-                grau_max, grau_med, grau_min, grau_dp,
+                grau_min, grau_max, grau_med, grau_dp,
                 cores,
                 endtime);
     fclose(fp);
