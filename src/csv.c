@@ -14,31 +14,31 @@ void write_graph(Grafo* grafo)
 }
 
 /* Conta a quantidade de linhas num arquivo */
-int count_lines (FILE* stream)
+int count_lines (char* filename)
 {
     int size = 0;
-    for (char c = getc(stream); c != EOF; c = getc(stream))
-        if (c == '\n')
-            ++size;
-
-    if (fseek(stream, 0L, SEEK_SET) != 0)
+    FILE* stream = fopen(filename, "r");
+    char line[MAX_LINE_LENGTH];
+    while (fgets(line, MAX_LINE_LENGTH, stream))
     {
-        printf("Erro ao ler arquivo.\n");
-        return -1;
+        if(strlen(line) > 1)
+            size++;
     }
-    return size + 1;
+    return size;
 }
 
 /* Lê o CSV de entrada e retorna o Grafo */
 Grafo* read_csv (char* filename)
 {
     FILE* stream = fopen(filename, "r");
-    Grafo* grafo = create_graph(count_lines(stream));
+    Grafo* grafo = create_graph(count_lines(filename));
 
     char line[MAX_LINE_LENGTH];
     const char* delim = ",";
     while (fgets(line, MAX_LINE_LENGTH, stream))
     {
+        if(strlen(line) <= 1) continue;
+
         char* tmp = strdup(line);
         char* field = strtok(tmp, delim);
         int first = atoi(field);

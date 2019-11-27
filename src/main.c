@@ -30,7 +30,7 @@ int main (void)
 
     clock_t start = clock();
 
-    char* filename = "samples/exemplo2.csv";
+    char* filename = "grafo06.csv";
     Grafo* grafo = read_csv(filename);
     print_graph(grafo);
     dsatur(grafo);
