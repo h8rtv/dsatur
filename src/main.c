@@ -27,7 +27,6 @@ void dsatur (Grafo* grafo)
 
 int main (void)
 {
-
     clock_t start = clock();
 
     char* filename = "grafo06.csv";
@@ -38,5 +37,8 @@ int main (void)
 
     write_info(grafo, start);
     free_graph(grafo);
+
+    test_dsatur(grafo);
+
     return 0;
 }

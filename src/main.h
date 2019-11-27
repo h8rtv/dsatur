@@ -8,6 +8,7 @@
 #include <time.h>
 #include "grafo.h"
 #include "csv.h"
+#include "test.h"
 
 #define MAX_LINE_LENGTH 2048
 
