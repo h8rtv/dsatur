@@ -39,13 +39,15 @@ int main (void)
     char* filename = "grafo06.csv";
     Grafo* grafo = read_csv(filename);
     print_graph(grafo);
+    
     dsatur(grafo);
+
     write_graph(grafo);
-
     write_info(grafo, start);
-    free_graph(grafo);
-
+    
     test_dsatur(grafo);
+
+    free_graph(grafo);
 
     return 0;
 }
