@@ -1,4 +1,6 @@
-# dsatur
+# DSATUR
+![Codacy](https://img.shields.io/codacy/grade/e34808588b1f49e38b70e170f3ca8b57)
+
 DSATUR implementation in C.
 
 ## Executar
