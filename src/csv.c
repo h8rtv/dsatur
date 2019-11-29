@@ -86,7 +86,7 @@ void write_results(Grafo* grafo, clock_t start){
 
     // Define o desvio padrão
     for(int i = 0; i < grafo->v; i++){
-        grau_dp += (double) pow((double) (grafo->sat[i] - grau_med), (double) 2);
+        grau_dp += (double) pow((double) (grafo->length[i] - grau_med), (double) 2);
     }
     grau_dp /= grafo->v;
     grau_dp = sqrt(grau_dp);
