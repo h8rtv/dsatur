@@ -10,7 +10,7 @@ void dsatur (Grafo* grafo)
     {
         done = 0;
         grafo->color[i] = 1;
-        // Caso seja a primeira passagem pelo loop, ou seja, o i seja do índice mais saturado.
+        // Caso seja a primeira passagem pelo loop, ou seja, o i seja do índice com mais vértices adjacentes.
         if (notFirstTime)
             // Seleciona a menor cor possível de acordo com a lista encadeada.
             while (!done)
