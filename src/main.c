@@ -27,7 +27,8 @@ void dsatur (Grafo* grafo)
             notFirstTime = 1;
         // Satura todos os nós vizinhos
         for (node = grafo->adj[i]; node != NULL; node = node->next)
-            grafo->sat[node->id]++;
+            if (grafo->color[node->id] > 0)
+                grafo->sat[node->id]++;
         i = get_highest_degree_edge(grafo);
     }
 }
@@ -43,7 +44,7 @@ int main (void)
     dsatur(grafo);
     write_graph(grafo);
 
-    write_info(grafo, start);
+    write_results(grafo, start);
     free_graph(grafo);
     return 0;
 }

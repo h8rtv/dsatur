@@ -56,7 +56,7 @@ Grafo* read_csv (char* filename)
 }
 
 /* Escreve as informações necessárias */
-void write_info(Grafo* grafo, clock_t start){
+void write_results(Grafo* grafo, clock_t start){
     int
         grau_min = -1,
         grau_max = -1,
@@ -67,17 +67,17 @@ void write_info(Grafo* grafo, clock_t start){
         grau_dp = 0;
 
     clock_t end = clock();
-    float endtime = (float)(end - start) / CLOCKS_PER_SEC;
+    float endtime = (float) (end - start) / CLOCKS_PER_SEC;
 
     
     // Define grau máximo, médio e mínimo, e o número de cores
     for(int i = 0; i < grafo->v; i++){
-        if(grafo->sat[i] < grau_min || grau_min == -1)
-            grau_min = grafo->sat[i];
-        if(grafo->sat[i] > grau_max || grau_max == -1)
-            grau_max = grafo->sat[i];
+        if(grafo->length[i] < grau_min || grau_min == -1)
+            grau_min = grafo->length[i];
+        if(grafo->length[i] > grau_max || grau_max == -1)
+            grau_max = grafo->length[i];
         
-        grau_med += grafo->sat[i];
+        grau_med += grafo->length[i];
 
         if(grafo->color[i] > cores)
             cores = grafo->color[i];
@@ -86,18 +86,18 @@ void write_info(Grafo* grafo, clock_t start){
 
     // Define o desvio padrão
     for(int i = 0; i < grafo->v; i++){
-        grau_dp += (float) pow((float) (grafo->sat[i] - grau_med), 2);
+        grau_dp += (double) pow((double) (grafo->sat[i] - grau_med), (double) 2);
     }
     grau_dp /= grafo->v;
     grau_dp = sqrt(grau_dp);
 
     FILE *fp;
 
-    fp = fopen("info.csv", "w+");
+    fp = fopen("resultados.csv", "w+");
     fprintf(fp, "No. nós, No. arestas, Grau mínimo, Grau máximo, Grau médio, Desvio padrão, No. cores, Run time (s)\n");
-    fprintf(fp, "%d, %d, %d, %d, %.2f, %.2f, %d, %f\n",
+    fprintf(fp, "%d, %d, %d, %d, %.2f, %f, %d, %f\n",
                 grafo->v,
-                grafo->e,
+                (int) floor(grafo->e/2),
                 grau_min, grau_max, grau_med, grau_dp,
                 cores,
                 endtime);
